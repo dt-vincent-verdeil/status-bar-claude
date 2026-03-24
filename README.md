@@ -27,14 +27,22 @@ DT_Main   develop   Sonnet 4.6   ctx ▊▊▊▊▊▊▊▊ 60%   5h ▊▊▊
 
 ## Installation
 
-### 1. Copy the script to your Claude config directory
+```bash
+./install.sh
+```
+
+This copies `statusline-command.sh` to `~/.claude/` and patches `~/.claude/settings.json` with the required `statusLine` config. Restart Claude Code afterward.
+
+### Manual installation
+
+#### 1. Copy the script to your Claude config directory
 
 ```bash
 cp statusline-command.sh ~/.claude/statusline-command.sh
 chmod +x ~/.claude/statusline-command.sh
 ```
 
-### 2. Configure Claude Code
+#### 2. Configure Claude Code
 
 In `~/.claude/settings.json`, add:
 
