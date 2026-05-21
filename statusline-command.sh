@@ -52,11 +52,17 @@ format_reset() {
   local epoch="$1"
   [ -z "$epoch" ] && return
   [[ "$epoch" =~ ^[0-9]+$ ]] || return
-  local h ampm
-  h=$(date -r "$epoch" "+%I" 2>/dev/null) || return
-  h=$((10#$h))
-  ampm=$(date -r "$epoch" "+%p" 2>/dev/null | tr '[:upper:]' '[:lower:]')
-  printf '%d%s' "$h" "$ampm"
+  local ampm
+  ampm=$(date -r "$epoch" "+%p" 2>/dev/null)
+  if [ -n "$ampm" ]; then
+    local h
+    h=$(date -r "$epoch" "+%I" 2>/dev/null) || return
+    printf '%d%s' "$((10#$h))" "$(printf '%s' "$ampm" | tr '[:upper:]' '[:lower:]')"
+  else
+    local t
+    t=$(date -r "$epoch" "+%H:%M" 2>/dev/null) || return
+    printf '%s' "$t"
+  fi
 }
 
 dir_sec="${BOLD_WHITE}${dir}${RESET}"
